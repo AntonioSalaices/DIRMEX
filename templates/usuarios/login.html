@@ -1,0 +1,25 @@
+{%extends 'base/base.html'%}
+{%load crispy_forms_tags%}
+<style>
+#btn2
+    {
+      background-color: yellow;
+      color:black;
+      margin-right: 15px;
+      width:115px;
+    }
+</style>
+{%block content%}
+<div class="container col-sm-6">
+<form method="post" class="form-signin-heading">
+   <h2 class="form-signin-heading">Iniciar sesion</h2>
+   {% csrf_token %}
+   {{form|crispy}}
+   <div style="text-align: center;">
+      <button id="btn2" class="btn btn" type="submit" value="Entrar">Entrar</button>
+   </div>
+</form>
+
+</div>
+
+{%endblock%}

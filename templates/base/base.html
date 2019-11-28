@@ -1,0 +1,115 @@
+{%load crispy_forms_tags%}
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block head_title %} {% endblock %}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js'></script>
+    <style>
+    
+     strong
+     {
+       color: white;
+     }
+    #btn2
+    {
+      background-color: yellow;
+      color:black;
+      margin-right: 15px;
+      width:155px;
+    }
+    #item
+    {
+      width:100px;
+    }
+    .navbar{
+      background-color:rgb(7, 53, 102);
+    }
+   </style>
+    {% block extrastatic %}
+
+    {% endblock %}
+</head>
+<body>
+  <nav id="nav" class="navbar navbar-expand-md navbar-white bg-white">
+      <a class="navbar-brand" href="{%url 'index'%}">
+      <img src="{%static 'imagenes/Arduino.png'%}" width="90px" height="90px" alt="">
+      </a>
+      <button class="navbar-toggler navbar-toggler-left collapsed" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="navbar-collapse collapse" id="navbarsExampleDefault" aria-expanded="false">
+        <ul class="navbar-nav mr-auto">
+        {% comment %} Espacio de barra {% endcomment %}
+        </ul>
+      </div>
+      <div class="form-inline my-4 my-lg-0">
+            {%if not request.user.is_authenticated%}
+            <button id="btn2" type="button" style="margin-right:8px;" class="btn btn my-2 my-sm-0" data-toggle="modal" data-target="#iniciarSesion"> Iniciar sesión</button>
+            {%else%}
+            <strong> </strong>
+      </div>
+        <div class="btn-group">
+            <button id="btn2" type="button" class="btn btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"title="Clickea aquí para ver las demás opciones">
+                {{request.user.username}}
+            </button>
+            <div class="dropdown-menu dropdown-menu">
+              <a id="item" title="Click aquí para salir de su cuenta" href="{%url 'logout'%}" class="dropdown-item"><i class="fa fa-times-circle"></i>  Salir</a>
+            </div>
+        </div>
+        {%endif%}
+  </nav>
+    
+    {%block content%}
+    {% if messages %}
+    <ul class="messages">{% for message in messages %} <li{% if message.tags == "success" %} class="alert alert-success"{%else%}class="alert alert-danger"{% endif %}>{{ message }}</li>{% endfor %}</ul>
+   	{% endif %}
+    {%endblock%}
+   
+  </div>
+</div>
+
+
+
+<div class="modal fade" id="iniciarSesion">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 title="Click aqui para iniciar sesion" style="text-align: center;" class="modal-title">Iniciar sesión</h4>
+        <button  type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <!-- Modal body -->
+    <div class="modal-body">
+         <form role="form" method="POST" action="{%url 'login'%}">
+            <div class="form-group">
+               {% csrf_token %}
+                {{login|crispy}}
+            </div>
+            <div style="text-align: center;">
+              <button id="btn2" type="submit" class="btn btn"><i class="fa fa-check"></i> Continuar</button>
+              <br> 
+              <br>
+            </div>
+        </form>
+    </div>
+    </div>
+  </div>
+</div>
+
+
+{%block scripts%}
+{%endblock%}
+
+</body>
+</html>
