@@ -7,8 +7,11 @@
 <script src="https://cdn.jsdelivr.net/sweetalert2/6.6.2/sweetalert2.min.js"></script> 
 <script src="https://d3js.org/d3.v3.min.js"></script>
 <script src="https://d3js.org/topojson.v0.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> -->
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js" type="text/javascript"></script>
+<link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <script>
     // TODO: Aquí consumes tu api
         $(document).ready(function(){           
@@ -20,13 +23,15 @@
             $.ajax({
                method: "GET",
                url: endpoint,
+
                success: function(data)
                {
                 empresas = data
-                console.log(empresas)
-                
+                console.log(empresas);
+                              
                },
                error: function(error_data){
+
                    console.log("error")
                    console.log(error_data)
                } 
@@ -50,9 +55,7 @@
 
           //   });
            }
-          //  $("#update").on('click', function(){
-          //   setCard();
-          //  });
+         
        })
            </script>
 <style>
@@ -60,59 +63,116 @@ body {
   overflow-x: hidden;
 }
 
-#sidebar-wrapper {
-  min-height: 100vh;
-  margin-left: -15rem;
-  -webkit-transition: margin .25s ease-out;
-  -moz-transition: margin .25s ease-out;
-  -o-transition: margin .25s ease-out;
-  transition: margin .25s ease-out;
+:root {
+	--primary-color: #FADF75;
+	--accent-color: #FBCA11;
+height: 40%;
+	--main-font: 'roboto';
+	--font-bold: 700;
+	--font-regular: 400;
+}
+* { box-sizing: border-box }
+
+body {
+	color: var(--text-color);
+	background-color: var(--body-color);
+	font-family: var(--main-font), Arial;
+	font-weight: var(--font-regular);
+}
+main{ 
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 100vw;
+	height: 100vh;
+}
+h1 { font-weight: var(--font-bold) }
+input, 
+button {
+	border: none;
+	background: none;
+	outline: 0;
+}
+button {cursor: pointer}
+.SearchBox-input::placeholder {/* No es un seudoelemento estandar */
+ color:white;
+	opacity: .6;
+}
+/* Chrome, Opera ySafari */
+.SearchBox-input::-webkit-input-placeholder {
+  color: #0A0B19;
+}
+/* Firefox 19+ */
+.SearchBox-input::-moz-placeholder {
+  color: #0A0B19;
+}
+/* IE 10+ y Edge */
+.SearchBox-input:-ms-input-placeholder {
+  color: #0A0B19;
+}
+/* Firefox 18- */
+#formGroupExampleInput:-moz-placeholder {
+  color: #0A0B19;
 }
 
-#sidebar-wrapper .sidebar-heading {
-  padding: 0.875rem 1.25rem;
-  font-size: 1.2rem;
+
+
+.SearchBox {
+	--height: 6em;
+	display: flex;
+	
+	border-radius: var(--height);
+	background-color: var(--primary-color);
+	height: var(--height);
+}
+	.SearchBox:hover .SearchBox-input {
+		padding-left: 2em;
+		padding-right: 1em;
+		width: 240px;
+	}
+	.SearchBox-input {
+		width: 0;
+		font-size: 1.2em;
+		color: #0A0B19;
+		transition: .45s;
+	}
+	.SearchBox-button {
+		display: flex;
+		border-radius: 50%;
+		width: var(--height);
+		height: var(--height);
+		background-color: var(--accent-color);
+		transition: .3s;
+	}
+	.SearchBox-button:active  {
+		transform: scale(.85);
+	}
+	.SearchBox-icon {
+		margin: auto;
+		color: #0A0B19;
+	}
+
+
+@media screen and (min-width: 400px){
+	.SearchBox:hover .SearchBox-input {
+		width: 500px;
+	}
 }
 
-#sidebar-wrapper .list-group {
-  width: 15rem;
+.center {
+  position: fixed;
+  bottom: 50%;
+  right: center;
+  width: center;
 }
 
-#page-content-wrapper {
-  min-width: 100vw;
-}
-
-#wrapper.toggled #sidebar-wrapper {
-  margin-left: 0;
-}
-
-@media (min-width: 768px) {
-  #sidebar-wrapper {
-    margin-left: 0;
-  }
-
-  #page-content-wrapper {
-    min-width: 0;
-    width: 100%;
-  }
-
-  #wrapper.toggled #sidebar-wrapper {
-    margin-left: -15rem;
-  }
-}
-#menu-toggle{
-  background-color: yellow;
-      color:black;
-      margin-right: 15px;
-      width:155px;
-}
 </style>
 {%endblock%}
 
 
 {%block content%}
 
-{% if not request.user.is_authenticated %}
 <section class="cid-qJt8VDa5Sx mbr-fullscreen mbr-parallax-background" id="header2-f">
     <div class="container align-center">
         <div class="row justify-content-md-center">
@@ -121,65 +181,25 @@ body {
                 <br>
                 <br>
                 <br>
-                    
-                        <p class="lead">{% lorem 2 %}</p>
-                        <hr class="my-4">
-                        <p> {% lorem 1 %}</p>   
-                        <hr class="my-4">
-                        <p> {% lorem 1 %}</p>
-                        <hr class="my-4">
-                        <p> {% lorem 1 %}</p>
-                        <hr class="my-4">
-                        <p> {% lorem 1 %}</p>
-
-                
+  <form method="post" class="form-signin-heading">
+      {% csrf_token %}
+      <div class="SearchBox">
+          <input type="text" class="SearchBox-input" name="search"  id="typer" placeholder="">
+         <br>
+         <br>
+            <button class="SearchBox-button">
+              <i class="SearchBox-icon  material-icons">search</i>
+            </button>
+            <img src="https://img.icons8.com/carbon-copy/100/000000/microphone.png">
         </div>
+        <img src="https://img.icons8.com/wired/64/000000/hospital.png">
+        <img src="https://img.icons8.com/carbon-copy/100/000000/restaurant.png">
+        <img src="https://img.icons8.com/dotty/80/000000/airplane-landing.png">
+        </div>
+  </form>
     </div>             
 </section>
-{%else%} 
-<div class="d-flex" id="wrapper">
 
-    <!-- Sidebar -->
-    <div class="bg-light border-right" id="sidebar-wrapper">
-      <div class="sidebar-heading">Opciones</div>
-      <div class="list-group list-group-flush">
-        
-        <a href="#" class="list-group-item list-group-item-action bg-light">Registro de Empresas</a>
-        <a href="#" class="list-group-item list-group-item-action bg-light">Registro de Usuarios</a>
-
-      </div>
-    </div>
-    <!-- /#sidebar-wrapper -->
-
-    <!-- Page Content -->
-    <div id="page-content-wrapper">
-
-      <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-        <button class="btn btn" id="menu-toggle">Menú</button>
-
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-      </nav>
-
-      <div class="container-fluid">
-        <h1 class="mt-4" align="center">Registro</h1>
-        <div class="card" style="width:1500px; height:700px;">
-        <div class="card-body">
-
-          <!-- Aqui puedes trabajar -->
-
-
-        </div>
-        </div>
-      </div>
-    </div>
-    <!-- /#page-content-wrapper -->
-
-  </div>
-  <!-- /#wrapper -->
-
-{%endif%}
 
 
 
@@ -192,5 +212,57 @@ body {
       e.preventDefault();
       $("#wrapper").toggleClass("toggled");
     });
+
+    const words = ["Hospitales",
+  "Asilos",
+  "Hoteles",
+  "Aeropuertos",
+  "Centrales de autobuses",
+  "Hospitales",
+  "Asilos",
+  "Hoteles",
+  "Aeropuertos",
+  "Centrales de autobuses",
+
+];
+let i = 0;
+let timer;
+
+function typingEffect() {
+  let word = words[i].split("");
+  var loopTyping = function() {
+    if (word.length > 0) {
+      let elem = document.getElementById('typer');
+      elem.setAttribute('placeholder', elem.getAttribute('placeholder') + word.shift());
+    } else {
+      deletingEffect();
+      return false;
+    };
+    timer = setTimeout(loopTyping, 200);
+  };
+  loopTyping();
+};
+
+function deletingEffect() {
+  let word = words[i].split("");
+  var loopDeleting = function() {
+    if (word.length > 0) {
+      word.pop();
+      document.getElementById('typer').setAttribute('placeholder', word.join(""));
+    } else {
+      if (words.length > (i + 1)) {
+        i++;
+      } else {
+        i = 0;
+      };
+      typingEffect();
+      return false;
+    };
+    timer = setTimeout(loopDeleting, 100);
+  };
+  loopDeleting();
+};
+
+typingEffect();
   </script>
 {%endblock%}

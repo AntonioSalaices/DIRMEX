@@ -1,0 +1,128 @@
+{%extends 'base/base.html'%}
+{% load staticfiles %}
+
+{%block extrastatic%}
+
+<style>
+#llegar{
+    background-color: rgb(251, 202, 17);
+}
+body {
+  overflow-x: hidden;
+}
+
+#page-content-wrapper {
+  min-width: 100vw;
+}
+
+
+#categori{
+    color:rgb(39, 117, 148);
+}
+/* www.proyecto24.org
+www.nacionalfinanciera.com.mx */
+  #page-content-wrapper {
+    min-width: 0;
+    width: 100%;
+  }
+
+  #wrapper.toggled #sidebar-wrapper {
+    margin-left: -15rem;
+  }
+#card{
+  border: rgb(251, 202, 17) 5px solid;
+}
+.loader {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background: url('static/imagenes/loading.gif') 50% 50% no-repeat rgb(249,249,249);
+    opacity: .8;
+}
+</style>
+<script type="text/javascript">
+    $(document).ready(function($) {
+
+    $(window).on('load',function(){
+      $('.loader').fadeOut('slow',function(){$(this).remove();});
+    });
+    });
+  </script>
+<script>
+  function mensaje2() {
+    swal({
+    title: 'Yeeeaaaah!!!',
+    text: '',
+    imageUrl: 'http://localhost:8000/media/{{i.imagen}}',
+    imageWidth: 164,
+    imageHeight: 205,
+    padding: 10,
+    animation: true,
+  });
+}
+</script>
+
+{%endblock%}
+
+
+{%block content%}
+<div class="loader"></div>
+<!-- Page Content -->
+<div id="page-content-wrapper">
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+          <h5>Tu búsqueda de "{{busqueda}}" tuvo {{contador}} resultados</h5>
+          <!-- <button class="navbar-toggler-icon" style="background-color:orange" id="menu-toggle"></button> -->
+  
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+  
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+              
+            </ul>
+          </div>
+        </nav>
+  
+        <div class="container-fluid">
+          
+              {% if resultados %}	
+                    {% for i in resultados %}
+                    <br>
+                    <br>
+
+                     <div class="card" id="card" style="width: 80%;height: 10%; left:10%; right: 10%;">
+                        <div class="card-body">
+                          <h5 class="card-title">{{i.nombre}}</h5>
+                          <p class="card-text">{{i.calle}} #{{i.noext}}, {{i.colonia}}, {{i.municipio}}, {{i.estado}}, C.P.{{i.cp}}</p>
+                          <p class="card-text"><i class="fa fa-phone"></i> {{i.telefono}}</p>
+                          <p class="card-text">Servicios: {{i.servicios}}</p>
+                          <p class="card-text"><i class="fa fa-facebook-square"></i> {{i.red_social}}</p>
+                          <p id="categori" class="card-text">{{i.categoria}}</p>
+                          <a href="#" id="llegar" onClick="mensaje2()" class="btn btn"><i class="fa fa-map-marker"></i> Cómo llegar</a>
+                          <br>
+                          <br>
+                          <a href="#" id="llegar" class="btn btn"><i class="fa fa-plus"></i> Más información </a>
+                        </div>
+                        <img src="http://localhost:8000/media/{{i.imagen}}" width="100%" height="100%" class="card-img-top" alt="...">
+                      </div>
+                      {% endfor %}
+                {% endif %} 
+              <br>
+                
+        </div>
+      </div>
+      <!-- /#page-content-wrapper -->
+  
+</div>
+    <!-- /#wrapper -->
+{%endblock%}
+
+{%block scripts%}
+
+
+{%endblock%}
