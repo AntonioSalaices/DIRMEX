@@ -35,19 +35,14 @@ def index(request):
 
 
 def resultados(request):
-    # resultados = Empresas.objects.all()
-    # contador = Empresas.objects.all().count()
-    # context = {
-    #     'resultados':resultados,
-    #     'contador': contador
-    # }
     return render(request, "usuarios/resultados.html")
 
-def view_project(request, project_id):
-    if request.method == 'POST':
-        project_id = request.POST.get('project_id')
-        print(project_id)
-        return redirect(reverse('view_project', args=(project_id,)))
+def detalle(request, pk):
+    try:
+        empresa = Empresas.objects.get(pk=pk)
+    except Board.DoesNotExist:
+        raise Http404
+    return render(request, "usuarios/detalle.html", {'empresa': empresa})
 
 @login_required(login_url='/login/')
 def vista_logout(request):
