@@ -64,6 +64,15 @@
   background-color: #4CAF50;
   color: white;
 }
+footer {
+    background-color: rgb(24, 23, 23);
+    color:white;
+    position: absolute;
+    padding-bottom: 0px;
+    width: 100%;
+		opacity: 0.9;
+    font-weight:normal;
+}
    </style>
     {% block extrastatic %}
 
@@ -74,6 +83,7 @@
   <nav id="nav" class="navbar">
       <a class="navbar-brand" href="{%url 'index'%}">
       <img src="{%static 'imagenes/Dir_mex-02.png'%}" width="208px" height="100px" alt="">
+      <!-- <i>"Si estás en El Directorio de México, seguro te encuentran"</i> -->
       </a>
       <button class="navbar-toggler navbar-toggler-left collapsed" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -83,11 +93,12 @@
         {% comment %} Espacio de barra {% endcomment %}
         </ul>
       </div>
+      
       <div class="form-inline my-4 my-lg-0">
             {%if not request.user.is_authenticated%}
             <button id="btn2" type="button" style="margin-right:8px;" class="btn btn my-2 my-sm-0" data-toggle="modal" data-target="#iniciarSesion"> Iniciar sesión</button>
             {%else%}
-            <strong> </strong>
+            
       </div>
         <div class="btn-group">
             <button id="btn2" type="button" class="btn btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"title="Clickea aquí para ver las demás opciones">
@@ -95,7 +106,7 @@
             </button>
             <div class="dropdown-menu dropdown-menu">
               <a id="item" title="Click aquí para salir de su cuenta" href="{%url 'logout'%}" class="dropdown-item"><i class="fa fa-times-circle"></i>  Salir</a>
-              <a id="item" title="Click aquí para registrar una nueva empresa" href="/admin/" class="dropdown-item"><i class="fa fa-cloud"></i>Nueva</a>
+              <a id="item" title="Click aquí para registrar una nueva empresa" href="/admin/" class="dropdown-item"><i class="fa fa-cloud"></i>  Nueva</a>
             </div>
         </div>
         {%endif%}
@@ -109,7 +120,50 @@
    
   </div>
 </div>
+{%block footer%}
+<footer class="footer text-center">
+  <div class="row">
+      <div class="col-md-4">
+              <br>
+              <div class="headline"><h5>Nosotros:</h5></div>
+              <!-- <hr style="width:50%;background-color: white;"> -->
+              <p>Somos una empresa</p>
+              <p>dedicada a las soluciones</p>
+              <p>digitales, apasionados de</p>
+              <p>la comunicación y los productos</p>
+              <p>que facilitan la productividad</p>
+              <p>de nuestros clientes.</p>
+              
+      </div>
+      <div class="col-md-4">
+              <br>
+              <div class="headline"><h5>Productos:</h5></div>
+              <h6>Publicidad</h6>
+              <h6>Branding</h6>
+              <h6>Marketing</h6>
+              <h6>Difusión</h6>
+      </div>
+      <div class="col-md-4">
+              <br>
+              <div class="headline"><h5>Redes Sociales:</h5></div>
+              <br>
+              <br>
+              <a href="https://twitter.com/FilosoftS"><i class="fa fa-twitter fa-w-16 fa-3x"> </i></a>
+              <br>
+              <br>
+              <a href="https://www.facebook.com/filosoftstudio/"> <i class="fa fa-facebook fa-w-16 fa-3x"></i></a>
+      </div>
+  </div>
+  <br>
 
+  <div class="container">
+      <p class="text-center">
+        Copyright &copy; El Directorio de México 2019
+      </p>
+  </div>
+
+</footer> 
+{%endblock%}
 
 
 <div class="modal fade" id="iniciarSesion">

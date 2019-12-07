@@ -87,8 +87,32 @@ www.nacionalfinanciera.com.mx */
             </ul>
           </div>
         </nav>
-  
+        
+    
         <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-2">
+                  
+                </div>
+                <div class="col-md-8">
+                    {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+                        <div{% if message.tags == "success" %} class="alert alert-success"
+                      {%else%}
+                      class="alert alert-danger"
+                      {% endif %}>
+                      {{ message }}</div>
+                        {% endfor %}
+                    </ul>
+                  {% endif %}
+                </div>
+                <div class="col-md-2">
+                    
+                </div>
+              </div>
+            
+            
           
               {% if resultados %}	
                     {% for i in resultados %}
@@ -98,27 +122,38 @@ www.nacionalfinanciera.com.mx */
                      <div class="card" id="card" style="width: 80%;height: 10%; left:10%; right: 10%;">
                         <div class="card-body">
                           <h5 class="card-title">{{i.nombre}}</h5>
-                          <p class="card-text">{{i.calle}} #{{i.noext}}, {{i.colonia}}, {{i.municipio}}, {{i.estado}}, C.P.{{i.cp}}</p>
+                          <p class="card-text">{{i.calle|upper}} #{{i.noext|upper}}, {{i.colonia|upper}}, {{i.municipio|upper}}, {{i.estado|upper}}, C.P.{{i.cp}}</p>
                           <p class="card-text"><i class="fa fa-phone"></i> {{i.telefono}}</p>
-                          <p class="card-text">Servicios: {{i.servicios}}</p>
+                          <p class="card-text">SERVICIOS: {{i.servicios|upper}}</p>
                           <p class="card-text"><i class="fa fa-facebook-square"></i> {{i.red_social}}</p>
-                          <p id="categori" class="card-text">{{i.categoria}}</p>
-                          <a href="#" id="llegar" onClick="mensaje2()" class="btn btn"><i class="fa fa-map-marker"></i> Cómo llegar</a>
+                          <p id="categori" class="card-text">{{i.categoria|upper}}</p>
+                        <form method="POST" action="/resultados/{{ i.id }}"/>
+                        {% csrf_token %}
+                          <a name="project_id" href="#" id="llegar" type="submit" class="btn btn"><i class="fa fa-map-marker"></i> Cómo llegar</a>
+                        </form>
                           <br>
                           <br>
-                          <a href="#" id="llegar" class="btn btn"><i class="fa fa-plus"></i> Más información </a>
+                          <a href="#" id="llegar" onClick="mensaje2()" class="btn btn"><i class="fa fa-plus"></i> Más información </a>
                         </div>
                         <img src="http://localhost:8000/media/{{i.imagen}}" width="100%" height="100%" class="card-img-top" alt="...">
                       </div>
                       {% endfor %}
+                      {%else%}
+                      <br>
+                      <br>
+                      <br>
+                      <br>
+                      <br>
+                      <br>
                 {% endif %} 
               <br>
-                
         </div>
       </div>
       <!-- /#page-content-wrapper -->
   
 </div>
+
+
     <!-- /#wrapper -->
 {%endblock%}
 
