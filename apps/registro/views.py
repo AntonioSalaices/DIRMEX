@@ -13,6 +13,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.db.models import  *
 from django.urls import reverse
+import json
 # from django.core.paginator import Paginator
 # Create your views here.
 
@@ -40,9 +41,12 @@ def resultados(request):
 def detalle(request, pk):
     try:
         empresa = Empresas.objects.get(pk=pk)
-    except Board.DoesNotExist:
+        json_lat = json.dumps(str(empresa.latitud))
+        print(json_lat)
+        json_long = json.dumps(str(empresa.longitud))
+    except empresa.DoesNotExist:
         raise Http404
-    return render(request, "usuarios/detalle.html", {'empresa': empresa})
+    return render(request, "usuarios/detalle.html", {'empresa': empresa,'json_lat':json_lat,'json_long':json_long})
 
 @login_required(login_url='/login/')
 def vista_logout(request):
