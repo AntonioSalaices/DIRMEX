@@ -22,13 +22,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'jidzggej3l)nh(+!zd1!3ec6_k4))8-vgn42or$e#_+b=+ctk4'
 
-GOOGLE_MAPS_API_KEY = 'your-key-goes-here'
+GOOGLE_MAPS_API_KEY = 'AIzaSyCDyuasqnP_CsOUVG6mIPPoyRu5oVWLNT4'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
-
+ALLOWED_HOSTS = ["localhost"]
 
 # Application definition
 
@@ -43,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'crispy_forms',
     'rest_framework',
+    'admin_honeypot',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -77,6 +77,16 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'eldirectoriomx.wsgi.application'
+
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+    )
+}
 
 
 # Database
@@ -131,6 +141,19 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_FILE_PATH = '/logs/app-messages'
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER= 'antonio.salaicesm@gmail.com'
+EMAIL_HOST_PASSWORD='agtkcnydsbftprye'
+EMAIL_PORT= 587
+
+
+
 
 
 # Static files (CSS, JavaScript, Images)

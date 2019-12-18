@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{% block head_title %} {% endblock %}</title>
+    <link rel="shortcut icon" type="image/png" href="{% static 'imagenes/favicon.ico' %}"/>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -25,14 +26,14 @@
      }
     #btn2
     {
-      background-color: rgb(251, 202, 17);;
+      background-color: rgb(251, 202, 17);
       color:black;
       margin-right: 15px;
       width:155px;
     }
     #item
     {
-      width:100px;
+      width:100%;
     }
     .navbar{
       background-color: #eff1f0;
@@ -67,11 +68,13 @@
 footer {
     background-color: rgb(24, 23, 23);
     color:white;
-    position: absolute;
-    padding-bottom: 0px;
+    position: relative;
+    padding-bottom: 20px;
     width: 100%;
 		opacity: 0.9;
     font-weight:normal;
+    bottom: 0%;
+    left: 0;
 }
    </style>
     {% block extrastatic %}
@@ -83,7 +86,6 @@ footer {
   <nav id="nav" class="navbar">
       <a class="navbar-brand" href="{%url 'index'%}">
       <img src="{%static 'imagenes/Dir_mex-02.png'%}" width="208px" height="100px" alt="">
-      <!-- <i>"Si estás en El Directorio de México, seguro te encuentran"</i> -->
       </a>
       <button class="navbar-toggler navbar-toggler-left collapsed" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -106,7 +108,7 @@ footer {
             </button>
             <div class="dropdown-menu dropdown-menu">
               <a id="item" title="Click aquí para salir de su cuenta" href="{%url 'logout'%}" class="dropdown-item"><i class="fa fa-times-circle"></i>  Salir</a>
-              <a id="item" title="Click aquí para registrar una nueva empresa" href="/admin/" class="dropdown-item"><i class="fa fa-cloud"></i>  Nueva</a>
+              <a id="item" title="Click aquí para registrar una nueva empresa" href="/admin_mx/" class="dropdown-item"><i class="fa fa-plus-circle"></i> Nueva</a>
             </div>
         </div>
         {%endif%}
@@ -127,13 +129,11 @@ footer {
               <br>
               <div class="headline"><h5>Nosotros:</h5></div>
               <!-- <hr style="width:50%;background-color: white;"> -->
-              <p>Somos una empresa</p>
-              <p>dedicada a las soluciones</p>
-              <p>digitales, apasionados de</p>
-              <p>la comunicación y los productos</p>
-              <p>que facilitan la productividad</p>
-              <p>de nuestros clientes.</p>
-              
+              <p>Somos una plataforma</p>
+              <p>dedicada a prestar</p>
+              <p>espacios publicitarios digitales</p>
+              <p>con el fin de darte a conocer</p>
+              <p>más a ti, y a tu empresa.</p>   
       </div>
       <div class="col-md-4">
               <br>
@@ -148,10 +148,7 @@ footer {
               <div class="headline"><h5>Redes Sociales:</h5></div>
               <br>
               <br>
-              <a href="https://twitter.com/FilosoftS"><i class="fa fa-twitter fa-w-16 fa-3x"> </i></a>
-              <br>
-              <br>
-              <a href="https://www.facebook.com/filosoftstudio/"> <i class="fa fa-facebook fa-w-16 fa-3x"></i></a>
+              <a href="https://www.facebook.com/pg/eldirectoriodemexico/about/"> <i class="fa fa-facebook fa-w-16 fa-3x"></i></a>
       </div>
   </div>
   <br>

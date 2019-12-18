@@ -20,6 +20,7 @@ import json
 def index(request):
     if request.method== 'POST':
         busqueda = request.POST['search']
+        print(busqueda)
         words = busqueda.split()
         contador=0
         resultados = Empresas.objects.all()
@@ -38,6 +39,18 @@ def index(request):
 def resultados(request):
     return render(request, "usuarios/resultados.html")
 
+def filtrado_dentistas(request):
+    return render(request, "usuarios/filtrado_dentistas.html")
+
+def filtrado_hoteles(request):
+    return render(request, "usuarios/filtrado_hoteles.html")
+    
+def filtrado_agencias(request):
+    return render(request, "usuarios/filtrado_agencias.html")
+
+def filtrado_restaurantes(request):
+    return render(request, "usuarios/filtrado_restaurantes.html")
+
 def detalle(request, pk):
     try:
         empresa = Empresas.objects.get(pk=pk)
@@ -47,6 +60,17 @@ def detalle(request, pk):
     except empresa.DoesNotExist:
         raise Http404
     return render(request, "usuarios/detalle.html", {'empresa': empresa,'json_lat':json_lat,'json_long':json_long})
+
+def filtro_estado_giro(request, pk_estado, pk_categoria):
+    try:
+        empresas = Empresas.objects.filter(Q(estado__id__icontains=pk_estado) & Q(categoria__id__icontains=pk_categoria))
+        print(empresas)
+        contador = empresas.count()
+    except empresas.DoesNotExist:
+        raise Http404
+    return render(request, "usuarios/resultados_filtrado.html", {'empresas': empresas, 'contador': contador})
+
+
 
 @login_required(login_url='/login/')
 def vista_logout(request):

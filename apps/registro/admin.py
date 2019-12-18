@@ -3,8 +3,6 @@ from apps.registro.models import Empresas, Categoria, Estados
 from django.conf import settings
 # Register your models here.
 
-
-
 admin.site.site_header = "El Directorio de México";
 admin.site.site_title = "Web";
 admin.site.index_title = "Registro de Empresas";
