@@ -27,7 +27,7 @@ GOOGLE_MAPS_API_KEY = 'AIzaSyCDyuasqnP_CsOUVG6mIPPoyRu5oVWLNT4'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["138.68.14.76"]
+ALLOWED_HOSTS = ["138.68.237.248","www.eldirectoriodemexico.com.mx","eldirectoriodemexico.com.mx"]
 
 # Application definition
 
