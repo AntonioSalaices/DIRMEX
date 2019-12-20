@@ -25,14 +25,13 @@ SECRET_KEY = 'jidzggej3l)nh(+!zd1!3ec6_k4))8-vgn42or$e#_+b=+ctk4'
 GOOGLE_MAPS_API_KEY = 'AIzaSyCDyuasqnP_CsOUVG6mIPPoyRu5oVWLNT4'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ["138.68.237.248","www.eldirectoriodemexico.com.mx","eldirectoriodemexico.com.mx"]
+ALLOWED_HOSTS = ["138.68.237.248","www.eldirectoriodemexico.com.mx","eldirectoriodemexico.com.mx","localhost"]
 
 # Application definition
 
 INSTALLED_APPS = [
-    'apps.api',
     'apps.registro',
     'django.contrib.admin',
     'django.contrib.auth',

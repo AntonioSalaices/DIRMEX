@@ -55,20 +55,24 @@ www.nacionalfinanciera.com.mx */
     });
     });
   </script>
-<script>
-  function mensaje2() {
-    swal({
-    title: 'Yeeeaaaah!!!',
-    text: '',
-    imageUrl: 'http://localhost:8000/media/{{i.imagen}}',
-    imageWidth: 164,
-    imageHeight: 205,
-    padding: 10,
-    animation: true,
-  });
-}
-</script>
-<script>
+  <!-- <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js" type="text/javascript"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+ <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" /> -->
+
+ <!-- <link rel="stylesheet" href="css/leaflet.extra-markers.min.css"> -->
+ <!-- <link rel="stylesheet" href="https://npmcdn.com/leaflet@1.0.0-rc.2/dist/leaflet.css" />
+ <link href='https://fonts.googleapis.com/css?family=Muli' rel='stylesheet' type='text/css'>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
+ <script src="https://cdn.jsdelivr.net/sweetalert2/6.6.2/sweetalert2.min.js"></script> -->
+ <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" /> 
+ <link rel="stylesheet" href="https://npmcdn.com/leaflet@1.0.0-rc.2/dist/leaflet.css" />
+ <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
+ <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
+ <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
+  
+
+<!-- <script>
   var jsonLat = JSON.parse('{{ json_lat | escapejs }}');
   var jsonLong = JSON.parse('{{ json_long | escapejs }}');
   
@@ -127,9 +131,11 @@ www.nacionalfinanciera.com.mx */
       </script>
 <script async defer
 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCDyuasqnP_CsOUVG6mIPPoyRu5oVWLNT4&callback=initMap">
-</script>
+</script> -->
+
 
 {%endblock%}
+
 
 
 {%block content%}
@@ -192,7 +198,60 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCDyuasqnP_CsOUVG6mIPPoyRu
                           <br>
                         </div>
                         <img src="http://localhost:8000/media/{{empresa.imagen}}" width="100%" height="100%" class="card-img-top" alt="...">
-                        <div id="map"></div>
+                        
+                        <div id="mapid" style="border: 3px solid rgb(10, 2, 114);width: 100%; height: 600px;"></div>
+                        <script>
+                            navigator.geolocation.getCurrentPosition(function(location) {
+                                    var latlng = new L.LatLng(location.coords.latitude, location.coords.longitude);
+                                    var lat = location.coords.latitude;
+                                    var lon = location.coords.longitude;
+                                    var jsonLat = JSON.parse('{{ json_lat | escapejs }}');
+                                    var jsonLong = JSON.parse('{{ json_long | escapejs }}');
+                                    var latlngE = new L.LatLng(Number(jsonLat), Number(jsonLong));
+                                    var map = L.map('mapid').setView(latlng, 15);
+                                    L.control.scale().addTo(map);
+                                    
+                                        // llamado obligatorio al API de mapbox
+                                        var OpenStreetMap_France = L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
+                                                maxZoom: 20,
+                                                attribution: '&copy; Openstreetmap France | &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                                            }).addTo(map);
+                                        // var OpenStreetMap_HOT = L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+                                        //         maxZoom: 19,
+                                        //         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Tiles style by <a href="https://www.hotosm.org/" target="_blank">Humanitarian OpenStreetMap Team</a> hosted by <a href="https://openstreetmap.fr/" target="_blank">OpenStreetMap France</a>'
+                                        //     }).addTo(map);
+                                        // L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiYW50b25pb3NhbGFpY2VzIiwiYSI6ImNqdXN5a256MjAyZnc0ZG5ybGptcXkxcG4ifQ.H0JQcmfgxKoqkYUrJ9OdAw', {
+                                        //     maxZoom: 18,
+                                        //     attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+                                        //         '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+                                        //         'Imagery © <a href="http://mapbox.com">Mapbox</a>',
+                                        //     id: 'mapbox.streets',
+                                        //     accessToken: 'pk.eyJ1IjoiYW50b25pb3NhbGFpY2VzIiwiYSI6ImNqdXN5a256MjAyZnc0ZG5ybGptcXkxcG4ifQ.H0JQcmfgxKoqkYUrJ9OdAw'
+                                        // }).addTo(map);
+                                        
+                                        var marker = L.marker(latlng).addTo(map);
+                                        var marker2 = L.marker(latlngE).addTo(map);
+                                        
+                                        marker.bindPopup("<b>!Hola!</b><br>Aquí estás ubicado tú.").openPopup();
+                                        marker2.bindPopup("<b>!Hola!</b><br>Aquí está la empresa que buscas.").openPopup();
+
+                                        var control = L.Routing.control({
+                                                      waypoints: [
+                                                          latlng,
+                                                          latlngE
+                                                      ],
+                                                      routeWhileDragging: true
+                                                  }).addTo(map);
+                                                
+                                        var circle = L.circle(latlng, {
+                                            
+                                            fillColor: 'blue',
+                                            fillOpacity: 0.1,
+                                            radius: 500
+                                        }).addTo(map);
+                            })
+                          
+                           </script>
                       </div>
                       <br>
                       <br>
@@ -212,6 +271,7 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCDyuasqnP_CsOUVG6mIPPoyRu
 {%endblock%}
 
 {%block scripts%}
+
 
 
 {%endblock%}

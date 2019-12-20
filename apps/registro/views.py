@@ -23,15 +23,18 @@ def index(request):
         print(busqueda)
         words = busqueda.split()
         contador=0
-        resultados = Empresas.objects.all()
+        resultados=[]
         for word in words:
-            resultados = resultados.filter(Q(nombre__icontains=word) | Q(servicios__icontains=word) | Q(categoria__nombre__icontains=word) | Q(estado__nombre__icontains=word) | Q(municipio__icontains=word))
+            resultados = Empresas.objects.filter(Q(nombre__icontains=word) | Q(servicios__icontains=word) | Q(categoria__nombre__icontains=word) | Q(estado__nombre__icontains=word) | Q(municipio__icontains=word))
             pass
-        contador = resultados.count()
+        if resultados:
+            contador = resultados.count()
+        else:
+            contador=0
         if resultados: 
             return render(request, 'usuarios/resultados.html', {'resultados':resultados, 'contador': contador, 'busqueda': busqueda})      
         else:
-            messages.error(request,'Resultados no encontrados') 
+            messages.error(request,'Resultados no encontrados')
             return render(request,'usuarios/resultados.html',{'contador': contador, 'busqueda': busqueda})  
     return render(request, 'index.html')
 
@@ -64,7 +67,6 @@ def detalle(request, pk):
 def filtro_estado_giro(request, pk_estado, pk_categoria):
     try:
         empresas = Empresas.objects.filter(Q(estado__id__icontains=pk_estado) & Q(categoria__id__icontains=pk_categoria))
-        print(empresas)
         contador = empresas.count()
     except empresas.DoesNotExist:
         raise Http404

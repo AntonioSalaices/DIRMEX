@@ -16,7 +16,6 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import re_path, include
 from apps.registro.views import index, vista_login, vista_logout, CharData, resultados, detalle, filtrado_dentistas, filtrado_hoteles, filtrado_agencias, filtrado_restaurantes, filtro_estado_giro
-from apps.api.api import ListEmpresasAPI
 from django.conf import settings
 from django.conf.urls.static import static
 urlpatterns = [
@@ -29,7 +28,6 @@ urlpatterns = [
     re_path(r'^restaurantes/', filtrado_restaurantes, name="restaurantes"),
     re_path(r'^resultados/(?P<pk>\d+)/$', detalle, name="resultados"),
     re_path(r'^resultados/(?P<pk_estado>\d+)/(?P<pk_categoria>\d+)/$', filtro_estado_giro, name="resfil"),
-    re_path(r'^listado/', ListEmpresasAPI.as_view()),
     re_path(r'^data/', CharData.as_view()),
     re_path(r'^login/', vista_login, name="login" ),
     re_path(r'^logout/',vista_logout,name='logout'),
