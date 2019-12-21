@@ -31,4 +31,6 @@ urlpatterns = [
     re_path(r'^data/', CharData.as_view()),
     re_path(r'^login/', vista_login, name="login" ),
     re_path(r'^logout/',vista_logout,name='logout'),
-]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
