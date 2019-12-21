@@ -127,7 +127,7 @@ www.nacionalfinanciera.com.mx */
                           <p id="categori" class="card-text">{{empresa.categoria|upper}}</p>
                           <br>
                         </div>
-                        <img src="http://localhost:8000/media/{{empresa.imagen}}" width="100%" height="100%" class="card-img-top" alt="...">
+                        <img src="{{empresa.imagen.url}}" width="100%" height="100%" class="card-img-top" alt="...">
                         
                         <div id="mapid" style="border: 3px solid rgb(10, 2, 114);width: 100%; height: 600px;"></div>
                         <script>
