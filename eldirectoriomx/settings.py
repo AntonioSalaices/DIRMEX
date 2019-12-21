@@ -78,7 +78,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'eldirectoriomx.wsgi.application'
 
 
-# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 
 REST_FRAMEWORK = {
