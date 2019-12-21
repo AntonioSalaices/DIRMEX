@@ -25,7 +25,7 @@ SECRET_KEY = 'jidzggej3l)nh(+!zd1!3ec6_k4))8-vgn42or$e#_+b=+ctk4'
 GOOGLE_MAPS_API_KEY = 'AIzaSyCDyuasqnP_CsOUVG6mIPPoyRu5oVWLNT4'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["138.68.237.248","www.eldirectoriodemexico.com.mx","eldirectoriodemexico.com.mx","localhost"]
 
@@ -171,7 +171,7 @@ EMAIL_PORT= 587
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static_global'),
@@ -179,7 +179,7 @@ STATICFILES_DIRS = (
 
 
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 AUTO_LOGOUT_DELAY = 120
