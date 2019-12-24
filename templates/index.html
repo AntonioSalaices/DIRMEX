@@ -43,8 +43,19 @@
            })
        
            }
+
+           $("a[href^='#']").click(function(e) {
+          e.preventDefault();
+          
+          var position = $($(this).attr("href")).offset().top;
+
+          $("body, html").animate({
+            scrollTop: position
+          } /* speed */ );
+        });
      
        })
+       
 
 
 
@@ -500,11 +511,11 @@ svg {
         <div id="sea2"  class="row">
             <div class="col-md-3" style="background-color:#eff1f0;">
 
-                <div class="card2">
+              <a href="#one"><div class="card2">
                     <h3 class="title">¿Buscas qué hacer?</h3>
                     <div class="bar">
                       <div class="emptybar">
-                          <img  src="{%static 'imagenes/party.jpg'%}" style="width:100%">
+                        <img  src="{%static 'imagenes/party.jpg'%}" style="width:100%">
                       </div>
                       <div class="filledbar"></div>
                     </div>
@@ -513,14 +524,14 @@ svg {
                       <circle class="stroke" cx="60" cy="60" r="50"/>
                     </svg>
                     </div>
-                  </div>
+                  </div></a>
               </div>
               <div class="col-md-3" style="background-color:#eff1f0;">
-                  <div class="card2">
+                <a href="#one"><div class="card2">
                     <h3 class="title">¿Qué comer?</h3>
                     <div class="bar">
                       <div class="emptybar">
-                          <img  src="{%static 'imagenes/comer.jpg'%}" style="width:100%">
+                        <img src="{%static 'imagenes/comer.jpg'%}" style="width:100%">
                       </div>
                       <div class="filledbar"></div>
                     </div>
@@ -529,14 +540,14 @@ svg {
                       <circle class="stroke" cx="60" cy="60" r="50"/>
                     </svg>
                     </div>
-                  </div>
+                  </div></a>
                 </div>
                 <div class="col-md-3" style="background-color:#eff1f0;">
-                  <div class="card2">
+                  <a href="#one"><div class="card2">
                     <h3 class="title">¿Cómo cuidarte?</h3>
                     <div class="bar">
                       <div class="emptybar">
-                          <img  src="{%static 'imagenes/gym.jpg'%}" style="width:100%">
+                        <img  src="{%static 'imagenes/gym.jpg'%}" style="width:100%">
                       </div>
                       <div class="filledbar"></div>
                     </div>
@@ -545,15 +556,15 @@ svg {
                       <circle class="stroke" cx="60" cy="60" r="50"/>
                     </svg>
                     </div>
-                  </div>
+                  </div></a>
                 </div>
 
                 <div class="col-md-3" style="background-color:#eff1f0;">
-                  <div class="card2">
+                  <a href="#two"><div class="card2">
                     <h3 class="title">Promocionar tu negocio</h3>
                     <div class="bar">
                       <div class="emptybar">
-                          <img  src="{%static 'imagenes/redes.jpg'%}" style="width:100%">
+                        <img  src="{%static 'imagenes/redes.jpg'%}" style="width:100%">
                       </div>
                       <div class="filledbar"></div>
                     </div>
@@ -562,7 +573,7 @@ svg {
                       <circle class="stroke" cx="60" cy="60" r="50"/>
                     </svg>
                     </div>
-                  </div>
+                  </div></a>
                 </div>
               
           </div>
@@ -589,7 +600,7 @@ svg {
   <div class="todo">
     <div class="columnas">
   
-      <div class="container-fluid">
+      <div class="container-fluid" id="one">
         <div class="row">
   
           <div class="col-md-3" href="{% url 'dentistas' %}" style="background-color:#eee;">
@@ -668,7 +679,7 @@ svg {
   </div>
   </div>
   <!-- AQUI  -->
-  <div class="container-fluid">
+  <div class="container-fluid" >
       <div  class="row">
           <div class="col-md-12" style="background-color:#eee;">
               <div class="column" style="width:100%">
@@ -693,7 +704,7 @@ svg {
 
     </div> 
     <!-- <div class="container-fluid"> -->
-      <div class="row contactanos">
+      <div class="row contactanos" id="two">
         <div class="inner">
           <div class="seven-columns">
               <p class="contus">Contáctanos de Lunes a Viernes de 9am. a 8pm.</p>
