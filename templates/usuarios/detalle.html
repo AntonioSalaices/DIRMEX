@@ -110,10 +110,8 @@ www.nacionalfinanciera.com.mx */
                         
                         <div id="mapid" style="border: 3px solid rgb(10, 2, 114);width: 100%; height: 600px;"></div>
                         <script>
-                        var jsonLat = JSON.parse('{{ json_lat | escapejs }}');
-                        var jsonLong = JSON.parse('{{ json_long | escapejs }}');
-                        var MyLocation = [Number(jsonLong), Number(jsonLat)];
-                        console.log(MyLocation);
+                        var MyLocation = JSON.parse('{{ coordenadas | escapejs }}');
+                      
                         mapboxgl.accessToken = 'pk.eyJ1IjoiYW50b25pb3NhbGFpY2VzIiwiYSI6ImNqdXN5a256MjAyZnc0ZG5ybGptcXkxcG4ifQ.H0JQcmfgxKoqkYUrJ9OdAw';
                           
                           // Initialize a map
@@ -147,7 +145,7 @@ www.nacionalfinanciera.com.mx */
                             var marker = new mapboxgl.Marker({
                               draggable: false
                             })
-                            .setLngLat([Number(jsonLong), Number(jsonLat)])
+                            .setLngLat(MyLocation)
                             .addTo(map);
                             
 

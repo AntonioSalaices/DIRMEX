@@ -55,14 +55,18 @@ def filtrado_restaurantes(request):
     return render(request, "usuarios/filtrado_restaurantes.html")
 
 def detalle(request, pk):
+    coordenadas=[]
     try:
         empresa = Empresas.objects.get(pk=pk)
         json_lat = json.dumps(str(empresa.latitud))
         print(json_lat)
         json_long = json.dumps(str(empresa.longitud))
+        coordenadas.append(json_long)
+        coordenadas.append(json_lat)
+        coords = json.dumps(str(coordenadas))
     except empresa.DoesNotExist:
         raise Http404
-    return render(request, "usuarios/detalle.html", {'empresa': empresa,'json_lat':json_lat,'json_long':json_long})
+    return render(request, "usuarios/detalle.html", {'empresa': empresa,'coordenadas':coords})
 
 def filtro_estado_giro(request, pk_estado, pk_categoria):
     try:
