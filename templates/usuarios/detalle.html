@@ -88,9 +88,10 @@ www.nacionalfinanciera.com.mx */
                 <div class="col-md-2">
                     
                 </div>
-              </div>	
+            </div>	
                     <br>
                     <br>
+            
 
                      <div class="card" id="card" style="width: 80%;height: 10%; left:10%; right: 10%;">
                         <div class="card-body">
@@ -102,8 +103,15 @@ www.nacionalfinanciera.com.mx */
                           <p class="card-text"><i class="fa fa-facebook-square"></i> {{empresa.red_social}}</p>
                           <p id="categori" class="card-text">{{empresa.categoria|upper}}</p>
                           <br>
+                          
                         </div>
                         <img src="{{empresa.imagen.url}}" width="100%" height="100%" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <p class="card-text"><i class="fa fa-map-marker"></i> Indicaciones para uso del GPS:</p>
+                            <p class="card-text">1.-Seleccione el origen <b>A</b> haciendo click en el mapa o ingresando dirección.</p>
+                            <p class="card-text">2.-Seleccione el destino <b>B</b> haciendo click en el mapa o ingresando dirección.</p>
+                        </div>
+                        
                         
                         <div id="mapid" style="border: 3px solid rgb(10, 2, 114);width: 100%; height: 600px;"></div>
                         <script>
@@ -154,27 +162,8 @@ www.nacionalfinanciera.com.mx */
                             .addTo(map);
                             
                             
-
-                          
-                            
-
-                            
-                            
-
-
-                            
-                            
-
-                            
-
                           });
-                          // Aquí termina el load del mapa
-
-
-
-
-
-                            
+                          // Aquí termina el load del map    
                           
                         </script>      
                       </div>
