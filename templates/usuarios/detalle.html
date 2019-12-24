@@ -32,37 +32,16 @@ www.nacionalfinanciera.com.mx */
 #card{
   border: rgb(251, 202, 17) 5px solid;
 }
-.loader {
-    position: fixed;
-    left: 0px;
-    top: 0px;
-    width: 100%;
-    height: 100%;
-    z-index: 9999;
-    background: url('static/imagenes/loading.gif') 50% 50% no-repeat rgb(249,249,249);
-    opacity: .8;
-}
+
 #map {
         height: 400px;  /* The height is 400 pixels */
         width: 100%;  /* The width is the width of the web page */
        }
 </style>
-<script type="text/javascript">
-    $(document).ready(function($) {
-
-    $(window).on('load',function(){
-      $('.loader').fadeOut('slow',function(){$(this).remove();});
-    });
-    });
-  </script>
- <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" /> 
- <link rel="stylesheet" href="https://npmcdn.com/leaflet@1.0.0-rc.2/dist/leaflet.css" />
- <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
- <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
- <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
-  
-
-
+ <script src='https://npmcdn.com/@turf/turf/turf.min.js'></script>
+ <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
+ <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.4.0/mapbox-gl.js'></script>
+ <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.4.0/mapbox-gl.css' rel='stylesheet' />
 
 {%endblock%}
 
@@ -131,57 +110,67 @@ www.nacionalfinanciera.com.mx */
                         
                         <div id="mapid" style="border: 3px solid rgb(10, 2, 114);width: 100%; height: 600px;"></div>
                         <script>
-                            navigator.geolocation.getCurrentPosition(function(location) {
-                                    var latlng = new L.LatLng(location.coords.latitude, location.coords.longitude);
-                                    var lat = location.coords.latitude;
-                                    var lon = location.coords.longitude;
-                                    var jsonLat = JSON.parse('{{ json_lat | escapejs }}');
-                                    var jsonLong = JSON.parse('{{ json_long | escapejs }}');
-                                    var latlngE = new L.LatLng(Number(jsonLat), Number(jsonLong));
-                                    var map = L.map('mapid').setView(latlng, 15);
-                                    L.control.scale().addTo(map);
-                                    
-                                        // llamado obligatorio al API de mapbox
-                                        var OpenStreetMap_France = L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
-                                                maxZoom: 20,
-                                                attribution: '&copy; Openstreetmap France | &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                                            }).addTo(map);
-                                        // var OpenStreetMap_HOT = L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
-                                        //         maxZoom: 19,
-                                        //         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Tiles style by <a href="https://www.hotosm.org/" target="_blank">Humanitarian OpenStreetMap Team</a> hosted by <a href="https://openstreetmap.fr/" target="_blank">OpenStreetMap France</a>'
-                                        //     }).addTo(map);
-                                        // L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiYW50b25pb3NhbGFpY2VzIiwiYSI6ImNqdXN5a256MjAyZnc0ZG5ybGptcXkxcG4ifQ.H0JQcmfgxKoqkYUrJ9OdAw', {
-                                        //     maxZoom: 18,
-                                        //     attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
-                                        //         '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-                                        //         'Imagery © <a href="http://mapbox.com">Mapbox</a>',
-                                        //     id: 'mapbox.streets',
-                                        //     accessToken: 'pk.eyJ1IjoiYW50b25pb3NhbGFpY2VzIiwiYSI6ImNqdXN5a256MjAyZnc0ZG5ybGptcXkxcG4ifQ.H0JQcmfgxKoqkYUrJ9OdAw'
-                                        // }).addTo(map);
-                                        
-                                        var marker = L.marker(latlng).addTo(map);
-                                        var marker2 = L.marker(latlngE).addTo(map);
-                                        
-                                        marker.bindPopup("<b>!Hola!</b><br>Aquí estás ubicado tú.").openPopup();
-                                        marker2.bindPopup("<b>!Hola!</b><br>Aquí está la empresa que buscas.").openPopup();
+                        var jsonLat = JSON.parse('{{ json_lat | escapejs }}');
+                        var jsonLong = JSON.parse('{{ json_long | escapejs }}');
+                        var MyLocation = [Number(jsonLong), Number(jsonLat)];
 
-                                        var control = L.Routing.control({
-                                                      waypoints: [
-                                                          latlng,
-                                                          latlngE
-                                                      ],
-                                                      routeWhileDragging: true
-                                                  }).addTo(map);
-                                                
-                                        var circle = L.circle(latlng, {
-                                            
-                                            fillColor: 'blue',
-                                            fillOpacity: 0.1,
-                                            radius: 500
-                                        }).addTo(map);
-                            })
+                        mapboxgl.accessToken = 'pk.eyJ1IjoiYW50b25pb3NhbGFpY2VzIiwiYSI6ImNqdXN5a256MjAyZnc0ZG5ybGptcXkxcG4ifQ.H0JQcmfgxKoqkYUrJ9OdAw';
+
+                          // Initialize a map
+                          var map = new mapboxgl.Map({
+                            container: 'mapid', // container id
+                            style: 'mapbox://styles/mapbox/streets-v10', // stylesheet location
+                            center: MyLocation, // starting position
+                            zoom: 13 // starting zoom
+                          });
+                          map.addControl(
+
+                          me = new mapboxgl.GeolocateControl({
+                          positionOptions: {
+                          enableHighAccuracy: true
+                          },
+                          trackUserLocation: true
+                          })
+                          );
+                          // Add zoom and rotation controls to the map.
+                          map.addControl(new mapboxgl.NavigationControl());
+
+                          AnotherLocation = [me._map.transform._center.lng,me._map.transform._center.lat];
                           
-                           </script>
+
+
+                          // Aqui carga el mapa
+                          map.on('load', function() {
+
+                            var marker = new mapboxgl.Marker({
+                              draggable: false
+                            })
+                            .setLngLat(MyLocation)
+                            .addTo(map);
+                            
+
+                          
+                            
+
+                            
+                            
+
+
+                            
+                            
+
+                            
+
+                          });
+                          // Aquí termina el load del mapa
+
+
+
+
+
+                            
+                          
+                        </script>      
                       </div>
                       <br>
                       <br>
