@@ -25,7 +25,7 @@ SECRET_KEY = 'jidzggej3l)nh(+!zd1!3ec6_k4))8-vgn42or$e#_+b=+ctk4'
 GOOGLE_MAPS_API_KEY = 'AIzaSyCDyuasqnP_CsOUVG6mIPPoyRu5oVWLNT4'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["138.68.237.248","www.eldirectoriodemexico.com.mx","eldirectoriodemexico.com.mx","localhost"]
 
@@ -96,16 +96,16 @@ REST_FRAMEWORK = {
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'mysql_cymysql',
-        'NAME': 'dirmex',
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST': 'localhost',
-        'PORT': '3306',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'mysql_cymysql',
+#         'NAME': 'dirmex',
+#         'USER': 'root',
+#         'PASSWORD': '',
+#         'HOST': 'localhost',
+#         'PORT': '3306',
+#     }
+# }
 # if DEBUG:
 # DATABASES = {
 # 'default': {
@@ -114,16 +114,16 @@ DATABASES = {
 #     }
 # }
 # else:
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'dirmex',
-#         'USER': 'salaices',
-#         'PASSWORD': 'pass123',
-#         'HOST': 'localhost',
-#         'PORT': '',
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'dirmex',
+        'USER': 'salaices',
+        'PASSWORD': 'pass123',
+        'HOST': 'localhost',
+        'PORT': '',
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
