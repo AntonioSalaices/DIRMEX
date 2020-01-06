@@ -26,7 +26,8 @@ def index(request):
         resultados=[]
         if words:
             # Q(nombre__icontains=word) | Q(servicios__icontains=word) || 
-            resultados = Empresas.objects.filter( Q(categoria__nombre__icontains=words[0]) | Q(nombre__icontains=words[0]))
+            resultados = Empresas.objects.filter(Q(nombre__icontains=busqueda))
+            resultados = Empresas.objects.filter(Q(categoria__nombre__icontains=words[0]) | Q(nombre__icontains=words[0]))
             
         if len(words) > 1:
             resultados = resultados.filter(Q(estado__nombre__icontains=words[1]) | Q(municipio__icontains=words[1]))
