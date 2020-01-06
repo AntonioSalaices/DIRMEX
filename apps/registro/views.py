@@ -31,7 +31,7 @@ def index(request):
             
         if len(words) > 1:
             resultados = resultados.filter(Q(estado__nombre__icontains=words[1]) | Q(municipio__icontains=words[1]))
-            resultados = Empresas.objects.filter(Q(categoria__nombre__icontains=words[0]) | Q(nombre__icontains=words[0]))
+            resultados = Empresas.objects.filter(Q(categoria__nombre__icontains=words[0]) | Q(nombre__icontains=words[0]) | Q(servicios__icontains=words[0]))
         
         if resultados:
             contador = resultados.count()
