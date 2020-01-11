@@ -24,7 +24,7 @@ def index(request):
         print(words)
         contador=0
         resultados=[] 
-        stopwords = ['de', 'en', 'la', 'con', 'de', 'y', 'a']
+        stopwords = ['de', 'en', 'la', 'con', 'de', 'y', 'a', 'los','las', 'DE', 'EN', 'LA', 'CON', 'DE', 'Y', 'A', 'LOS','LAS']
         for word in list(words):  # iterating on a copy since removing will mess things up
             if word in stopwords:
                 words.remove(word)
