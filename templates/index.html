@@ -445,12 +445,72 @@ svg {
 #slogan{
   font-family: 'Open Sans', sans-serif;
 }
+[data-tooltip] {
+  position: relative;
+  z-index: 2;
+  cursor: pointer;
+}
+
+/* Hide the tooltip content by default */
+[data-tooltip]:before,
+[data-tooltip]:after {
+  visibility: hidden;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+  filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=0);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Position tooltip above the element */
+[data-tooltip]:before {
+  position: absolute;
+  bottom: 150%;
+  left: 50%;
+  margin-bottom: 5px;
+  margin-left: -80px;
+  padding: 7px;
+  width: 160px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  background-color: #000;
+  background-color: hsla(0, 0%, 20%, 0.9);
+  color: #fff;
+  content: attr(data-tooltip);
+  text-align: center;
+  font-size: 14px;
+  line-height: 1.2;
+}
+
+/* Triangle hack to make tooltip look like a speech bubble */
+[data-tooltip]:after {
+  position: absolute;
+  bottom: 150%;
+  left: 50%;
+  margin-left: -5px;
+  width: 0;
+  border-top: 5px solid #000;
+  border-top: 5px solid hsla(0, 0%, 20%, 0.9);
+  border-right: 5px solid transparent;
+  border-left: 5px solid transparent;
+  content: " ";
+  font-size: 0;
+  line-height: 0;
+}
+
+/* Show tooltip content on hover */
+[data-tooltip]:hover:before,
+[data-tooltip]:hover:after {
+  visibility: visible;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+  filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=100);
+  opacity: 1;
+}
 </style>
 {%endblock%}
 
 
 {%block content%}
-
 <section>
     <div class="banner" style="background-image:  url('static/imagenes/directorio.jpg');">
       <div class="container align-center">
@@ -462,17 +522,20 @@ svg {
                   <br>
                   
    <form class="center" method="post" >
-  
-    <div class="form-group">
-  
+     <label class="radio-inline" data-tooltip="Selecciona para hacer la búsqueda por nombre. Ejemplo: El Directorio de México">
+      <input type="radio"  name="nom" value="1" onchange="val(this)" checked>Nombre</label>
+     <label class="radio-inline" data-tooltip="Selecciona para hacer la búsqueda por categoría o giro. Ejemplo: Hoteles">
+      <input type="radio" name="nom" value="2" onchange="val(this)">Categoria o Giro</label>
+     <label class="radio-inline" data-tooltip="Selecciona para hacer la búsqueda por categoría y ciudad. Ejemplo: Hoteles en Guasave">
+      <input type="radio" name="nom" value="3" onchange="val(this)">Categoria y Ciudad</label>
    
     
-    <div class="SearchBox">
+    <div class="SearchBox" data-tooltip="Selecciona un filtro para hacer la búsqueda.">
   
       
       {% csrf_token %}
   
-      <input type="text"  class="SearchBox-input" name="search"  type="text" id="typer" placeholder="">
+      <input  type="text"  class="SearchBox-input" name="search"  type="text" id="typer" placeholder="">
     
         <button class="SearchBox-button" id="busqueda">
             <i class="fa fa-search fa-w-16 fa-2x"></i>

@@ -26,12 +26,12 @@ class Categoria(models.Model):
 
 class Empresas(models.Model):
     nombre = models.CharField(max_length=70,  help_text="Aquí ingresa el nombre de la empresa", verbose_name="Nombre")
-    email = models.EmailField(help_text="Aquí ingresa el email de la empresa")
+    email = models.EmailField(help_text="Aquí ingresa el email de la empresa", blank=True)
     telefono = models.CharField(max_length=30, help_text="Aquí ingresa el teléfono de la empresa",verbose_name="Teléfono" )
     servicios = models.TextField(max_length=300,help_text="Aquí ingresa los servicios de la empresa")
     imagen = models.ImageField()
     categoria = models.ForeignKey(Categoria,on_delete=models.CASCADE, verbose_name="Categoría")
-    red_social = models.CharField(max_length=200, help_text="Aquí ingresa la red social de la empresa")
+    red_social = models.CharField(max_length=200, blank=True, help_text="Aquí ingresa la red social de la empresa")
     cp = models.CharField(max_length=10,  help_text="Código Postal", verbose_name="Código Postal")
     estado = models.ForeignKey(Estados,on_delete=models.CASCADE)
     municipio = models.CharField(max_length=30,  help_text="Municipio")

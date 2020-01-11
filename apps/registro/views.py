@@ -13,28 +13,32 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.db.models import  *
 from django.urls import reverse
-import json
-# from django.core.paginator import Paginator
-# Create your views here.
+
 
 def index(request):
     if request.method== 'POST':
         busqueda = request.POST['search']
-        print(busqueda)
+        fil = request.POST['nom']
+        print(fil)
         words = busqueda.split()
+        print(words)
         contador=0
-        resultados=[]
-        if words:
+        resultados=[] 
+        stopwords = ['de', 'en', 'la', 'con', 'de', 'y', 'a']
+        for word in list(words):  # iterating on a copy since removing will mess things up
+            if word in stopwords:
+                words.remove(word)
+
+        print(words)
+        if(busqueda):
             # Q(nombre__icontains=word) | Q(servicios__icontains=word) || 
-            resultados = Empresas.objects.filter(Q(nombre__icontains=busqueda))
+            if(fil=="1"):
+                resultados = Empresas.objects.filter(Q(nombre__unaccent__icontains=busqueda))
+            if(fil=="2"):
+                resultados = Empresas.objects.filter(Q(categoria__nombre__unaccent__icontains=busqueda))
+            if(fil=="3"):
+                resultados = Empresas.objects.filter(Q(categoria__nombre__unaccent__icontains=words[0]) & Q(municipio__unaccent__icontains=words[1]))
             
-            
-        if len(words) > 1:
-            resultados = Empresas.objects.filter(Q(estado__nombre__icontains=words[1]) | Q(municipio__icontains=words[1]))
-            resultados = Empresas.objects.filter(Q(categoria__nombre__icontains=words[0]) | Q(nombre__icontains=words[0]))
-            
-            
-        
         if resultados:
             contador = resultados.count()
         else:

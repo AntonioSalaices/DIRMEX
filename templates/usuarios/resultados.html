@@ -125,7 +125,7 @@ www.nacionalfinanciera.com.mx */
                           <p class="card-text">{{i.calle|upper}} #{{i.noext|upper}}, {{i.colonia|upper}}, {{i.municipio|upper}}, {{i.estado|upper}}, C.P.{{i.cp}}</p>
                           <p class="card-text"><i class="fa fa-phone"></i> {{i.telefono}}</p>
                           <p class="card-text">SERVICIOS: {{i.servicios|upper}}</p>
-                          <p class="card-text"><i class="fa fa-facebook-square"></i> {{i.red_social}}</p>
+                          <a href="{{i.red_social}}"> <i class="fa fa-facebook-square"></i> {{i.nombre}}</a>
                           <p id="categori" class="card-text">{{i.categoria|upper}}</p>
                           <a class="btn btn" id="llegar" href="{% url 'resultados' i.pk %}"><i class="fa fa-map-marker"></i> Cómo llegar</a>
                           <br>
