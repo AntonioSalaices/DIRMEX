@@ -36,7 +36,7 @@ class Empresas(models.Model):
     estado = models.ForeignKey(Estados,on_delete=models.CASCADE)
     municipio = models.CharField(max_length=30,  help_text="Municipio")
     colonia = models.CharField(max_length=20,  help_text="Colonia")
-    calle = models.CharField(max_length=30,  help_text="Calle")
+    calle = models.TextField(max_length=200,  help_text="Calle")
     noext = models.CharField(max_length=30,  help_text="No. Exterior", verbose_name="No. Exterior")
     latitud = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
     longitud = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
