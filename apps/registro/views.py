@@ -118,3 +118,24 @@ class CharData(APIView):
          "nombres":nombres
         }
         return Response(data)
+
+# ciudades= []
+#                 instan = Empresas.objects.all()
+#                 for i in instan:
+#                     ciudades.append(i.municipio.lower())
+
+#                 for word in list(words):  # iterating on a copy since removing will mess things up
+#                     if word in stopwords:
+#                         words.remove(word)
+                
+#                 for city in list(ciudades):  # iterating on a copy since removing will mess things up
+#                     if city.lower() in words:
+#                         ciudad= city
+#                         for w in list(words):  # iterating on a copy since removing will mess things up
+#                             if w.lower() ==ciudad.lower():
+#                                 words.remove(w)
+
+#                         cate= " ".join(words)
+#                         print(ciudad)
+#                         print(cate)
+#                         resultados = Empresas.objects.filter(Q(categoria__nombre__unaccent__icontains=cate) & Q(municipio__unaccent__icontains=ciudad))
