@@ -15,64 +15,21 @@
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+  
 <script>
 
 
 function myFunction() {
 
-  var checkBox = document.getElementById("nom");
+
   
 
-  if (checkBox.checked == true){
-    document.getElementById("ciudad").checked = false;
-    document.getElementById("giro").checked = false;
-
-  } else {
-   
-  }
 }
    // TODO: Aquí consumes tu api
    $(document).ready(function(){           
-           var endpoint = '/data/'
-           var empresas = [];
-           setCard();
-           enableAutoplay();
-
-           function setCard()
-           {
-            $.ajax({
-               method: "GET",
-               url: endpoint,
-
-               success: function(data)
-               {
-                empresas = data
-
-                if (document.getElementById("nom").checked == true)
-               {
-                    $("#typer").autocomplete({
-                      source: empresas.nombres
-                    });
-               }
-        
-                              
-               },
-               error: function(error_data){
-
-               } 
-           })
-       
-           }
-
-           $("a[href^='#']").click(function(e) {
-          e.preventDefault();
-          
-          var position = $($(this).attr("href")).offset().top;
-
-          $("body, html").animate({
-            scrollTop: position
-          } /* speed */ );
-        });
+    enableAutoplay();
+           
      
        })
        
@@ -543,11 +500,11 @@ svg {
                   
    <form class="center" method="post" >
      <label class="radio-inline" data-tooltip="Selecciona para hacer la búsqueda por categoría y ciudad. Ejemplo: Hoteles en Guasave">
-      <input type="radio" name="nom" id="ciudad" value="3" onchange="val(this)" checked>Categoria y Ciudad</label>
+      <input type="radio" name="nom" id="ciudad" value="3" onchange="val(this)" onclick="myFunction()" checked>Categoria y Ciudad</label>
      <label class="radio-inline" data-tooltip="Selecciona para hacer la búsqueda por nombre. Ejemplo: Nissan">
       <input type="radio"  name="nom" id="nom" value="1" onchange="val(this)" onclick="myFunction()">Nombre</label>
      <label class="radio-inline" data-tooltip="Selecciona para hacer la búsqueda por categoría o giro. Ejemplo: Hoteles">
-      <input type="radio" name="nom" id="giro" value="2" onchange="val(this)">Categoria o Giro</label>
+      <input type="radio" name="nom" id="giro" value="2" onchange="val(this)" onclick="myFunction()">Categoria o Giro</label>
      
    
     
