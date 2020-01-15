@@ -16,27 +16,95 @@
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-  
-<script>
+  <script>
+    
+      function myFunction() {
 
+        var endpoint = '/data/'
+              var empresas = [];
+              var saludo = [];
+              
+              setCard2();
+   
+              function setCard2()
+              {
+               $.ajax({
+                  method: "GET",
+                  url: endpoint,
+   
+                  success: function(data)
+                  {
+                   empresas = empresas
+                  $("#typer").autocomplete({
+                        source: saludo.hola
+                      });
+                  },
+                  error: function(error_data){
+   
+                  } 
+              })
+          
+              }
 
-function myFunction() {
+              if(document.getElementById('nom').checked) 
+            {
+              var endpoint = '/data/'
+              var empresas = [];
+              setCard();
+   
+              function setCard()
+              {
+               $.ajax({
+                  method: "GET",
+                  url: endpoint,
+   
+                  success: function(data)
+                  {
+                   empresas = data
+                  $("#typer").autocomplete({
+                        source: empresas.nombres
+                      });
+                                 
+                  },
+                  error: function(error_data){
+   
+                  } 
+              })
+          
+              }
 
-
-  
-
-}
-   // TODO: Aquí consumes tu api
-   $(document).ready(function(){           
-    enableAutoplay();
-           
-     
-       })
-       
-
-
-
-</script>
+            }
+      }
+      // TODO: Aquí consumes tu api
+      $(document).ready(function(){           
+              var endpoint = '/data/'
+              var empresas = [];
+              setCard();
+              enableAutoplay();
+   
+              function setCard()
+              {
+               $.ajax({
+                  method: "GET",
+                  url: endpoint,
+   
+                  success: function(data)
+                  {
+                   empresas = data
+                  $("#typer").autocomplete({
+                        source: empresas.nombres
+                      });
+                                 
+                  },
+                  error: function(error_data){
+   
+                  } 
+              })
+          
+              }
+        
+          })
+   </script>
 <style>
 .ui-autocomplete {
     background: #eee;
@@ -499,12 +567,12 @@ svg {
                   <br>
                   
    <form class="center" method="post" >
-     <label class="radio-inline" data-tooltip="Selecciona para hacer la búsqueda por categoría y ciudad. Ejemplo: Hoteles en Guasave">
-      <input type="radio" name="nom" id="ciudad" value="3" onchange="val(this)" onclick="myFunction()" checked>Categoria y Ciudad</label>
-     <label class="radio-inline" data-tooltip="Selecciona para hacer la búsqueda por nombre. Ejemplo: Nissan">
-      <input type="radio"  name="nom" id="nom" value="1" onchange="val(this)" onclick="myFunction()">Nombre</label>
-     <label class="radio-inline" data-tooltip="Selecciona para hacer la búsqueda por categoría o giro. Ejemplo: Hoteles">
-      <input type="radio" name="nom" id="giro" value="2" onchange="val(this)" onclick="myFunction()">Categoria o Giro</label>
+      <label class="radio-inline" data-tooltip="Selecciona para hacer la búsqueda por nombre. Ejemplo: Nissan">
+        <input type="radio"  name="nom" id="nom" value="1" onchange="val(this)" onclick="myFunction()" checked>Nombre</label>
+      <label class="radio-inline" data-tooltip="Selecciona para hacer la búsqueda por categoría y ciudad. Ejemplo: Hoteles en Guasave">
+        <input type="radio" name="nom" id="ciudad" value="3" onchange="val(this)" onclick="myFunction()" >Categoria y Ciudad</label>
+      <label class="radio-inline" data-tooltip="Selecciona para hacer la búsqueda por categoría o giro. Ejemplo: Hoteles">
+        <input type="radio" name="nom" id="giro" value="2" onchange="val(this)" onclick="myFunction()">Categoria o Giro</label>
      
    
     
@@ -513,7 +581,7 @@ svg {
       
       {% csrf_token %}
   
-      <input  type="text"  class="SearchBox-input" name="search"  type="text" id="typer" placeholder="">
+      <input  type="text"  class="SearchBox-input" name="search" autocomplete="off"  type="text" id="typer" placeholder="">
     
         <button class="SearchBox-button" id="busqueda">
             <i class="fa fa-search fa-w-16 fa-2x"></i>
