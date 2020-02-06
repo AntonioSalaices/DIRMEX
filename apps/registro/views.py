@@ -76,12 +76,30 @@ def detalle(request, pk):
     return render(request, "usuarios/detalle.html", {'empresa': empresa,'json_long':json_long,'json_lat':json_lat})
 
 def filtro_estado_giro(request, pk_estado, pk_categoria):
-    try:
-        empresas = Empresas.objects.filter(Q(estado__id__icontains=pk_estado) & Q(categoria__id__icontains=pk_categoria))
-        contador = empresas.count()
-    except empresas.DoesNotExist:
-        raise Http404
-    return render(request, "usuarios/resultados_filtrado.html", {'empresas': empresas, 'contador': contador})
+    if request.method== 'GET':
+        print(pk_estado)
+        print(pk_categoria)
+        empresas = Empresas.objects.filter(Q(estado_id=pk_estado) & Q(categoria__id=pk_categoria))
+        print(empresas)
+        if empresas:
+            contador = empresas.count()
+        else:
+            contador=0
+        if empresas: 
+            return render(request, "usuarios/resultados_filtrado.html", {'empresas': empresas, 'contador': contador})     
+        else:
+            messages.error(request,'Resultados no encontrados')
+            return render(request, "usuarios/resultados_filtrado.html", {'contador': contador})
+    return render(request, 'index.html')
+    
+    # try: 
+    #     print(pk_estado)
+    #     print(pk_categoria)
+    #     empresas = Empresas.objects.filter(Q(estado__contains=pk_estado) & Q(categoria__contains=pk_categoria))
+    #     contador = empresas.count()
+    # except empresas.DoesNotExist:
+    #     raise Http404
+    # return render(request, "usuarios/resultados_filtrado.html", {'empresas': empresas, 'contador': contador})
 
 
 
