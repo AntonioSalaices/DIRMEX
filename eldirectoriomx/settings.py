@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'admin_honeypot',
     'djangosecure',
+    'columns',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

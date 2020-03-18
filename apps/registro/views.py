@@ -4,8 +4,8 @@ from django.contrib.auth import login,logout,authenticate, get_user_model
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse, HttpResponseBadRequest    
 from django.contrib import messages
 # from django.views.generic import TemplateView
-from apps.registro.forms import LoginForm
-from apps.registro.models import Empresas, Categoria
+from apps.registro.forms import LoginForm, ParticipanteForm
+from apps.registro.models import Empresas, Categoria, Estados, Participantes
 from rest_framework.views import APIView
 import json
 from rest_framework.response import Response
@@ -53,6 +53,24 @@ def index(request):
 
 def resultados(request):
     return render(request, "usuarios/resultados.html")
+
+def registro_view(request):
+    estados = Estados.objects.all()
+    if request.method=='POST':
+        form = ParticipanteForm(request.POST or None, request.FILES or None)
+        print(form.is_valid())
+        if form.is_valid():
+            part = form.save(commit=False)
+            messages.success(request,"Registro con exito")
+            part.save()
+        return redirect("index")
+    else:
+        form = ParticipanteForm()
+    return render(request, "usuarios/registro_participantes.html",{'estados': estados,'form': form})    
+
+def listado_participantes(request):
+    participantes = Participantes.objects.all().order_by('-num_votos')
+    return render(request, "usuarios/listado_participantes.html",{'participantes':participantes})
 
 def filtrado_dentistas(request):
     return render(request, "usuarios/filtrado_dentistas.html")

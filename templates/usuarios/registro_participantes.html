@@ -1,0 +1,245 @@
+{%extends 'base/base.html'%}
+{% load staticfiles %}
+
+{%block extrastatic%}
+
+<style>
+#llegar{
+    background-color: rgb(251, 202, 17);
+}
+body {
+  overflow-x: hidden;
+  background-color: #e7e5e4;
+}
+
+#page-content-wrapper {
+  min-width: 100vw;
+}
+
+
+#categori{
+    color:rgb(39, 117, 148);
+}
+/* www.proyecto24.org
+www.nacionalfinanciera.com.mx */
+  #page-content-wrapper {
+    min-width: 0;
+    width: 100%;
+  }
+
+  #wrapper.toggled #sidebar-wrapper {
+    margin-left: -15rem;
+  }
+#card{
+  border: rgb(251, 202, 17) 5px solid;
+}
+/* .loader {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background: url('static/imagenes/loading.gif') 50% 50% no-repeat rgb(249,249,249);
+    opacity: .8;
+} */
+@keyframes jump {
+  0% {
+    top: 0;
+  }
+  50% {
+    top: 50px;
+  }
+  100% {
+    top: 0;
+  }
+}
+#arrow-down {
+  position: relative;
+  margin: 0 auto;
+  text-align: center;
+  animation: jump 5s infinite;
+}
+#arrow-down i {
+  content: '\f0a8';
+  font-family: 'FontAwesome';
+  font-size: 80px;
+  transition: 0.3s ease-in-out;
+}
+#arrow-down i:hover {
+  opacity: 0.7;
+  transition: 0.3s ease-in-out;
+}
+</style>
+<!-- <script type="text/javascript">
+    $(document).ready(function($) {
+
+    $(window).on('load',function(){
+      $('.loader').fadeOut('slow',function(){$(this).remove();});
+    });
+    });
+  </script> -->
+
+{%endblock%}
+
+
+{%block content%}
+<div class="loader"></div>
+<!-- Page Content -->
+<div id="page-content-wrapper">
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+          
+  
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+              
+            </ul>
+          </div>
+        </nav>
+        <br>
+        <br>
+        <br>
+    
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-2">
+                  
+                </div>
+                <div class="col-md-8">
+                    {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+                        <div{% if message.tags == "success" %} class="alert alert-success"
+                      {%else%}
+                      class="alert alert-danger"
+                      {% endif %}>
+                      {{ message }}</div>
+                        {% endfor %}
+                    </ul>
+                  {% endif %}
+                </div>
+                <div class="col-md-2">
+                    
+                </div>
+              </div>	
+                  <!-- Mensaje -->
+            <div class="row">
+              <div class="col-md-12">
+                
+              </div>
+          </div>
+          <!-- fin mensaje -->
+          <div  class="container col-lg-6 col-md-12">
+              <div class="alert alert-success" role="alert">
+                  <h3>Para poder participar solo tienes que registrarte e invitar a todos tus amigos para que voten por ti. La persona que obtenga más votos el día 15 de septiembre del presente año, será el auténtico ganador del iPhone 11 PRO MAX, con un valor de 37 mil pesos. PUEDE PARTICIPAR CUALQUIER PERSONA DE LA REPÚBLICA MEXICANA.</h3>
+                  </div>
+                  <div id="arrow-down">
+                      <i class="fa fa-chevron-down"></i>
+                    </div>  
+                    <br>
+                     <br>
+              <h1 style="text-align: center;">REGÍSTRATE COMO PARTICIPANTE</h1>
+
+              
+              
+          <form method="POST" enctype="multipart/form-data">
+              {%csrf_token%}
+              <br>
+              <br>
+              <br>
+                  <div class="form-group" >
+                      <label  class="form-control-label">
+                          <h3>Nombre completo*</h3>
+                      </label>
+                      <input  class="col-lg-12 col-md-12 form-control"  name="nombre" type="text" required>
+                      <strong  style="color:red;font-size: 11;visibility: hidden;"></strong>
+                  </div>
+                  <div class="form-group" >
+                      <label  class="form-control-label">
+                          <h3>Teléfono*</h3>
+                      </label>
+                      <input  class="col-lg-12 col-md-12 form-control"  name="telefono" type="number" required>
+                      <strong  style="color:red;font-size: 11;visibility: hidden;"></strong>
+                  </div>
+                  <div class="form-group" >
+                      <label  class="form-control-label">
+                          <h3>Teléfono 2*</h3>
+                      </label>
+                      <input  class="col-lg-12 col-md-12 form-control"  name="telefono2" type="number" required>
+                      <strong  style="color:red;font-size: 11;visibility: hidden;"></strong>
+                  </div>
+                  <div class="form-group" >
+                      <label  class="form-control-label">
+                          <h3>Email*</h3>
+                      </label>
+                      <input  class="col-lg-12 col-md-12 form-control"  name="email" type="email">
+                      <strong  style="color:red;font-size: 11;visibility: hidden;"></strong>
+                  </div>
+                  <div class="form-group" >
+                      <label  class="form-control-label">
+                          <h3>Imagen*</h3>
+                      </label>
+                      <input  class="col-lg-12 col-md-12 form-control" name="imagen" type="file" required>
+                      <strong  style="color:red;font-size: 11;visibility: hidden;"></strong>
+                      <small id="emailHelp" class="form-text text">Fotografía del participante.</small>
+                  </div>
+                  <div class="form-group" >
+                      <label  class="form-control-label">
+                          <h3>Red Social*</h3>
+                      </label>
+                      <input  class="col-lg-12 col-md-12 form-control"  name="red_social" type="text">
+                      <strong  style="color:red;font-size: 11;visibility: hidden;"></strong>
+                  </div>
+                  <div class="form-group">
+                      <label for="exampleSelect1"><h3>Estado de la República*</h3> </label>
+                      <select name="estado" class="col-lg-9 col-md-12 form-control" id="Select2">
+                          {% for i in estados %}
+                              <option value="{{i.id}}">{{i.nombre}}</option>
+                          {% endfor %}
+                      </select>
+                    </div>
+                    <div class="form-group" >
+                        <label  class="form-control-label">
+                            <h3>Municipio*</h3>
+                        </label>
+                        <input  class="col-lg-12 col-md-12 form-control"  name="municipio" type="text" required>
+                        <strong  style="color:red;font-size: 11;visibility: hidden;"></strong>
+                    </div>
+                    <div class="form-group" >
+                        <label  class="form-control-label">
+                           <h3>Dirección*</h3>
+                        </label>
+                        <input  class="col-lg-12 col-md-12 form-control"  name="colonia" type="text" required>
+                        <strong  style="color:red;font-size: 11;visibility: hidden;"></strong>
+                    </div>
+                 
+                  
+              <div style="text-align: center;">
+                  <button  class="btn btn-success" type="submit" value="Entrar"><h3>Registrarte</h3></button>
+              </div>
+              <br>
+              <br>
+          </form>
+          
+      </div>
+                
+                   
+                    
+                    
+            
+
+        </div>
+      </div>
+      <!-- /#page-content-wrapper -->
+  
+</div>
+
+
+    <!-- /#wrapper -->
+{%endblock%}
+
+{%block scripts%}
+
+
+{%endblock%}

@@ -14,14 +14,16 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import re_path, include
-from apps.registro.views import index, vista_login, vista_logout, CharData, resultados, detalle, filtrado_dentistas, filtrado_hoteles, filtrado_agencias, filtrado_restaurantes, filtro_estado_giro
+from django.urls import re_path, include 
+from apps.registro.views import index, vista_login, vista_logout, CharData, resultados, detalle, filtrado_dentistas, filtrado_hoteles, filtrado_agencias, filtrado_restaurantes, filtro_estado_giro, registro_view, listado_participantes
 from django.conf import settings
 from django.conf.urls.static import static
 urlpatterns = [
     re_path(r'^admin/',include('admin_honeypot.urls', namespace="admin_honeypot")),
     re_path(r'^admin_mx/', admin.site.urls),
     re_path(r'^$', index, name="index"),
+    re_path(r'^registro/', registro_view, name="registro"),
+    re_path(r'^participantes/', listado_participantes, name="participantes"),
     re_path(r'^dentistas/', filtrado_dentistas, name="dentistas"),
     re_path(r'^hoteles/', filtrado_hoteles, name="hoteles"),
     re_path(r'^agencias/', filtrado_agencias, name="agencias"),

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from apps.registro.models import Empresas, Categoria, Estados
+from apps.registro.models import Empresas, Categoria, Estados, Participantes
 from django.conf import settings
 # Register your models here.
 
@@ -27,8 +27,12 @@ class EmpresasAdmin(admin.ModelAdmin):
                 'https://maps.googleapis.com/maps/api/js?key={}'.format(settings.GOOGLE_MAPS_API_KEY),
                 'js/admin/location_picker.js',
             )
+
+class ParticipantesAdmin(admin.ModelAdmin):
+    search_fields = ('nombre', 'id', 'telefono', )
     
 admin.site.register(Empresas, EmpresasAdmin)
 
 admin.site.register(Categoria)
 admin.site.register(Estados)
+admin.site.register(Participantes, ParticipantesAdmin)

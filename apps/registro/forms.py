@@ -2,7 +2,7 @@
 from django import forms
 from django.contrib.auth import authenticate,get_user_model,login,logout
 from django.contrib.auth.models import User
-from apps.registro.models import Empresas
+from apps.registro.models import Empresas, Participantes
 from django.core import validators
 
 
@@ -19,3 +19,49 @@ class LoginForm(forms.Form):
             raise forms.ValidationError("El usuario o la contraseña son incorrectos")
         return super(LoginForm,self).clean(*args,**kwargs)
 
+
+
+class ParticipanteForm(forms.ModelForm):
+    email = forms.EmailField()
+    imagen = forms.ImageField()
+    class Meta:
+        model = Participantes
+        fields = [
+            'nombre', 
+            'telefono',
+            'telefono2',
+            'email',
+            'imagen',
+            'red_social',
+            'estado',
+            'municipio',
+            'colonia',
+        ]
+        labels = {
+            'nombre': 'Nombre: ',
+            'telefono': 'Teléfono: ',
+            'telefono2': 'Teléfono 2: ',
+            'email': 'Email: ',
+            'imagen': 'Imagen: ',
+            'estado': 'Estado: ',
+            'red_social': 'Red Social: ',
+            'municipio': 'Municipio: ',
+            'colonia': 'Colonia: ',
+        }
+        exclude = [
+            'num_votos'
+        ]
+
+    def clean(self):
+        cleaned_data = super().clean()
+        nombre = self.cleaned_data.get("nombre")
+        telefono =self.cleaned_data.get("telefono")
+        telefono2 = self.cleaned_data.get("telefono2")
+        email = self.cleaned_data.get("email")
+        imagen = self.cleaned_data.get("imagen")
+        estado = self.cleaned_data.get("estado")
+        red_social = self.cleaned_data.get("red_social")
+        municipio = self.cleaned_data.get("municipio")
+        colonia = self.cleaned_data.get('colonia')
+
+    
