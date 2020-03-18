@@ -55,7 +55,7 @@ class Participantes(models.Model):
     telefono = models.CharField(max_length=30, unique=True, help_text="Aquí ingresa el teléfono",verbose_name="Teléfono", blank=True)
     telefono2 = models.CharField(max_length=30, unique=True, help_text="Aquí ingresa el teléfono 2",verbose_name="Teléfono 2", blank=True)
     email = models.EmailField(help_text="Aquí ingresa el email del participante", blank=True)
-    imagen = models.ImageField(upload_to="media/", blank=True)
+    imagen = models.ImageField(blank=True)
     red_social = models.CharField(max_length=200, blank=True, help_text="Aquí ingresa su red social")
     estado = models.ForeignKey(Estados,on_delete=models.CASCADE)
     municipio = models.CharField(max_length=30,  help_text="Municipio", blank=True)
