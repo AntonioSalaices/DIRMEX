@@ -64,4 +64,13 @@ class ParticipanteForm(forms.ModelForm):
         municipio = self.cleaned_data.get("municipio")
         colonia = self.cleaned_data.get('colonia')
 
+    def clean_image(self):
+        imagen = self.cleaned_data.get('imagen', False)
+        if imagen:
+            if imagen._size > 4*1024*1024:
+                raise ValidationError("Image file too large ( > 4mb )")
+            return imagen
+        else:
+            raise ValidationError("Couldn't read uploaded image")
+
     
