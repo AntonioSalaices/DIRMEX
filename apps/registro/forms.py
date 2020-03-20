@@ -22,7 +22,6 @@ class LoginForm(forms.Form):
 
 
 class ParticipanteForm(forms.ModelForm):
-    email = forms.EmailField()
     imagen = forms.ImageField()
     class Meta:
         model = Participantes
