@@ -1,5 +1,6 @@
 from django.db import models
 from datetime import datetime
+from django.core.exceptions import ValidationError
 # Create your models here.
 
 class Estados(models.Model):
@@ -49,17 +50,26 @@ class Empresas(models.Model):
     def __str__(self):
         return str(self.id)+ '.- ' + self.nombre
 
+def validate_image(imagen):
+    file_size = imagen.file.size
+    # limit_kb = 150
+    # if file_size > limit_kb * 1024:
+    #     raise ValidationError("Max size of file is %s KB" % limit)
+
+    limit_mb = 3
+    if file_size > limit_mb * 1024 * 1024:
+       raise ValidationError("Max size of file is %s MB" % limit_mb)
 
 class Participantes(models.Model):
     nombre = models.CharField(max_length=100,  help_text="Aquí ingresa el nombre", verbose_name="Nombre", blank=True)
     telefono = models.CharField(max_length=30, unique=True, help_text="Aquí ingresa el teléfono",verbose_name="Teléfono", blank=True)
     telefono2 = models.CharField(max_length=30, help_text="Aquí ingresa el teléfono 2",verbose_name="Teléfono 2", blank=True)
     email = models.EmailField(help_text="Aquí ingresa el email del participante", blank=True)
-    imagen = models.ImageField(blank=True)
+    imagen = models.ImageField(blank=True, validators=[validate_image])
     red_social = models.CharField(max_length=200, blank=True, help_text="Aquí ingresa su red social")
     estado = models.ForeignKey(Estados,on_delete=models.CASCADE)
     municipio = models.CharField(max_length=30,  help_text="Municipio", blank=True)
-    colonia = models.CharField(max_length=20,  help_text="Colonia", blank=True)
+    colonia = models.CharField(max_length=200,  help_text="Colonia", blank=True)
     num_votos = models.IntegerField(default=0,blank=True)
 
     class Meta:
