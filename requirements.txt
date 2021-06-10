@@ -1,5 +1,5 @@
 cymysql==0.9.14
-Django==2.2.5
+Django==2.2.24
 django-admin-honeypot==1.1.0
 django-crispy-forms==1.7.2
 django-cymysql==2.2.0
